@@ -1,0 +1,13 @@
+drop table if exists Airports cascade;
+drop table if exists Connections cascade;
+drop table if exists Flights cascade;
+drop table if exists Airlines cascade;
+drop table if exists Airplane_Models cascade;
+drop table if exists Airplanes cascade cascade;
+drop table if exists Airlines_Airplanes cascade;
+drop table if exists Terminals cascade;
+drop table if exists Cities cascade;
+drop table if exists Countries cascade;
+drop table if exists Users cascade;
+drop table if exists User_Tickets cascade;
+drop table if exists Tickets cascade;
