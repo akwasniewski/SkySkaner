@@ -10,11 +10,15 @@ import java.sql.SQLException;
 
 public class HelloApplication extends Application {
     public static Integer userId=null;
+    static FXMLLoader fxmlLoader;
+    static Stage stage;
+    static Scene scene;
     @Override
-    public void start(Stage stage) throws IOException, SQLException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+    public void start(Stage newStage) throws IOException, SQLException {
+        stage=newStage;
+        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         DatabaseHandler.ConnectToPostgres();
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
@@ -23,8 +27,11 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
-    public static void SetUser(Integer user){
+    public static void SetUser(Integer user) throws IOException {
         userId=user;
         System.out.println("logged in as user:"+ userId );
+        fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setScene(scene);
     }
 }

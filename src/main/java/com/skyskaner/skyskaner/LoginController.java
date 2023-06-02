@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -28,7 +29,7 @@ public class LoginController {
                 return;
             }
         }
-        catch (SQLException e) {
+        catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
         WrongCredentials();

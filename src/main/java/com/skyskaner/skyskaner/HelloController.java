@@ -9,6 +9,6 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to SkySkaner!");
+        welcomeText.setText("Logged in as user " + HelloApplication.userId);
     }
 }
