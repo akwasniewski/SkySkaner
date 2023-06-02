@@ -1,6 +1,7 @@
 package com.skyskaner.skyskaner;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.math.BigInteger;
@@ -15,6 +16,8 @@ public class LoginController {
     TextField usernameField;
     @FXML
     TextField passwordField;
+    @FXML
+    Label errorLabel;
     public void Login() throws NoSuchAlgorithmException {
         String hashedPassword=HashPassword(passwordField.getText());
         String query ="select * from users where username='"+usernameField.getText()+"' and password='"+hashedPassword+"'";
@@ -42,5 +45,7 @@ public class LoginController {
     }
     public void WrongCredentials(){
         System.out.println("wrong credentials");
+        passwordField.setText("");
+        errorLabel.setText("Wrong Credentials!!!");
     }
 }
