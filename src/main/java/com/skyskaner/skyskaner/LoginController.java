@@ -20,6 +20,10 @@ public class LoginController {
     @FXML
     Label errorLabel;
     public void Login() throws NoSuchAlgorithmException {
+        if(passwordField.getText().equals("") || usernameField.getText().equals("")){
+            ErrorMessage("Provide username and password");
+            return;
+        }
         String hashedPassword=HashPassword(passwordField.getText());
         String query ="select * from users where username='"+usernameField.getText()+"' and password='"+hashedPassword+"'";
         try (Statement stmt = DatabaseHandler.connection.createStatement()) {
@@ -32,7 +36,7 @@ public class LoginController {
         catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
-        WrongCredentials();
+        ErrorMessage("Wrong Credentials!");
     }
     public String HashPassword(String prev) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
@@ -44,10 +48,9 @@ public class LoginController {
         }
         return hashtext;
     }
-    public void WrongCredentials(){
-        System.out.println("wrong credentials");
+    public void ErrorMessage(String err){
         passwordField.setText("");
-        errorLabel.setText("Wrong Credentials!!!");
+        errorLabel.setText(err);
     }
     public void ChangeLogin() throws IOException {
         HelloApplication.ChangeLogin(true);

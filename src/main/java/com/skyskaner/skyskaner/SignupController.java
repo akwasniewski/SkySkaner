@@ -22,6 +22,10 @@ public class SignupController {
     @FXML
     Label errorLabel;
     public void Signup() throws NoSuchAlgorithmException {
+        if(passwordField.getText().equals("") || usernameField.getText().equals("")){
+            ErrorMessage("Provide username and password");
+            return;
+        }
         String hashedPassword=HashPassword(passwordField.getText());
         String query ="select * from users where username='"+usernameField.getText()+"'";
         try (Statement stmt = DatabaseHandler.connection.createStatement()) {
