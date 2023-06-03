@@ -27,6 +27,7 @@ public class SignupController {
         try (Statement stmt = DatabaseHandler.connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()){
+                ErrorMessage("Username taken :(");
                 return;
             }
             Random rn = new Random();

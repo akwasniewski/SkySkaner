@@ -22,7 +22,7 @@
             <Insets />
         </opaqueInsets>
     </TextField>
-    <Button fx:id="submit" layoutX="38.0" layoutY="140" mnemonicParsing="false" onAction="#Login" prefHeight="26.0" prefWidth="52.0" text="Log In" />
+    <Button fx:id="submit" layoutX="38.0" layoutY="140" mnemonicParsing="false" onAction="#Login" prefHeight="26.0"  text="Log In" />
     <Label fx:id="errorLabel" alignment="CENTER"  layoutX="100" layoutY="160" prefHeight=".0" text="" textAlignment="CENTER" textFill="RED"/>
     <Button fx:id="signup" layoutX="200.0" layoutY="180" mnemonicParsing="false" onAction="#ChangeLogin"  text="Sign Up Instead" />
 </AnchorPane>
