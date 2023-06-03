@@ -34,4 +34,10 @@ public class HelloApplication extends Application {
         scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setScene(scene);
     }
+    public static void ChangeLogin(boolean val) throws IOException {
+        if(val) fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("signup.fxml"));
+        else fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+        scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setScene(scene);
+    }
 }

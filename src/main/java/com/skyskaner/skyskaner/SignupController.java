@@ -8,31 +8,40 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
-public class LoginController {
+public class SignupController {
     @FXML
     TextField usernameField;
     @FXML
     TextField passwordField;
     @FXML
     Label errorLabel;
-    public void Login() throws NoSuchAlgorithmException {
+    public void Signup() throws NoSuchAlgorithmException {
         String hashedPassword=HashPassword(passwordField.getText());
-        String query ="select * from users where username='"+usernameField.getText()+"' and password='"+hashedPassword+"'";
+        String query ="select * from users where username='"+usernameField.getText()+"'";
         try (Statement stmt = DatabaseHandler.connection.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                HelloApplication.SetUser(rs.getInt("id_user"));
+            if(rs.next()){
                 return;
             }
+            Random rn = new Random();
+            int random=rn.nextInt();
+            String insert = "INSERT into users values (?, ?, ?)";
+            PreparedStatement preparedStatement = DatabaseHandler.connection.prepareStatement(insert);
+            preparedStatement.setInt(1, random);
+            preparedStatement.setString(2, usernameField.getText());
+            preparedStatement.setString(3, hashedPassword);
+            preparedStatement.executeUpdate();
+            HelloApplication.SetUser(random);
         }
         catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
-        WrongCredentials();
     }
     public String HashPassword(String prev) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
@@ -44,12 +53,11 @@ public class LoginController {
         }
         return hashtext;
     }
-    public void WrongCredentials(){
-        System.out.println("wrong credentials");
+    public void ErrorMessage(String err){
         passwordField.setText("");
-        errorLabel.setText("Wrong Credentials!!!");
+        errorLabel.setText(err);
     }
     public void ChangeLogin() throws IOException {
-        HelloApplication.ChangeLogin(true);
+        HelloApplication.ChangeLogin(false);
     }
 }
