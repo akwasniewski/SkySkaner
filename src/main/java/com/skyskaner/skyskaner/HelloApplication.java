@@ -16,10 +16,10 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage newStage) throws IOException, SQLException {
         stage=newStage;
-        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
+        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search.fxml"));
         DatabaseHandler.ConnectToPostgres();
-        scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        scene = new Scene(fxmlLoader.load(), 600, 400);
+        stage.setTitle("Skyskaner");
         stage.setScene(scene);
         stage.show();
     }
@@ -30,9 +30,10 @@ public class HelloApplication extends Application {
     public static void SetUser(Integer user) throws IOException {
         userId=user;
         System.out.println("logged in as user:"+ userId );
-        fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        scene = new Scene(fxmlLoader.load(), 320, 240);
+        fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("search.fxml"));
+        scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setScene(scene);
+
     }
     public static void ChangeLogin(boolean val) throws IOException {
         if(val) fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("signup.fxml"));

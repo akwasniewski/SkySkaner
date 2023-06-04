@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.skyskaner.skyskaner.SearchController"
+            prefHeight="400.0" prefWidth="600.0">
+    <TextField fx:id="origin" layoutX="38.0" promptText="Origin" layoutY="43.0" prefHeight="35.0" prefWidth="250.0">
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+    </TextField>
+    <TextField fx:id="destination" layoutX="300.0" promptText="Destination" layoutY="43.0" prefHeight="35.0" prefWidth="250.0">
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+    </TextField>
+    <DatePicker fx:id="date" editable="false" layoutX="38.0" promptText="When" layoutY="80.0"/>
+    <Button text="Search" onAction="#Search" layoutX="300" layoutY="80" textFill="WHITE" style="-fx-background-color: blue;"/>
+    <Label fx:id="errorLabel" alignment="CENTER"  layoutX="38" layoutY="110" prefHeight=".0" text="" textAlignment="CENTER" textFill="RED"/>
+    <ListView fx:id="searchResultList" layoutX="38.0" layoutY="130.0" prefHeight="300.0" prefWidth="524.0" style="-fx-background-color: #707070;" />
+</AnchorPane>
