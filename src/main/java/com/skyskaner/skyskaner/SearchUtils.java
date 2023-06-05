@@ -63,7 +63,7 @@ public class SearchUtils {
         ResultSet secondCityInfo = secondCityStatement.executeQuery();
         secondCityInfo.next();
         Airport secondAirport = new Airport(secondCityInfo.getInt(1),secondCityInfo.getString(2), secondCityInfo.getString(3),secondCityInfo.getString(4));
-        Time arrivalTime=firstCityInfo.getTime(5);
+        Time arrivalTime=secondCityInfo.getTime(5);
 
         //airlines
         String airlinesQuery = "SELECT bb.the_name FROM airplanes NATURAL JOIN airlines_airplanes aa JOIN airlines bb ON aa.id_airline=bb.id_airline JOIN flights on airplanes.id_airplane=flights.id_airplane WHERE id_flight=? ";
