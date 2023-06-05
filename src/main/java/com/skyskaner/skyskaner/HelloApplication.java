@@ -33,7 +33,6 @@ public class HelloApplication extends Application {
         fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("search.fxml"));
         scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setScene(scene);
-
     }
 
     public static void ChangeLogin(boolean val) throws IOException {
