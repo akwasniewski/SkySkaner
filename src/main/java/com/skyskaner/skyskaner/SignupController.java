@@ -2,6 +2,7 @@ package com.skyskaner.skyskaner;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class SignupController {
     @FXML
     TextField usernameField;
     @FXML
-    TextField passwordField;
+    PasswordField passwordField;
     @FXML
     Label errorLabel;
     public void Signup() throws NoSuchAlgorithmException {
