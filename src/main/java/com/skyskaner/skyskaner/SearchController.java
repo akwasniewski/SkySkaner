@@ -38,7 +38,7 @@ public class SearchController implements Initializable {
             ErrorMessage("Provide all data");
             return;
         }
-        LinkedList<SearchResult> flights = SearchUtils.Search(origin.getText(), destination.getText(), Date.valueOf(date.getValue()));
+        LinkedList<SearchResult> flights = SearchUtils.Search(origin.getText().toUpperCase(), destination.getText().toUpperCase(), Date.valueOf(date.getValue()));
         if(flights.isEmpty()){
             ErrorMessage("No flights matching your query found");
             searchResultList.getItems().clear();
@@ -92,7 +92,7 @@ public class SearchController implements Initializable {
                         stopInfo.setText("Direct");
                     }
                     else{
-                        stopInfo.setText(String.valueOf(item.flights.size()) + " stops");
+                        stopInfo.setText(String.valueOf(item.flights.size()-1) + " stop");
                     }
                     price.setText(String.valueOf(item.flights.get(0).price)+ "€");
                     setGraphic(vbox);
