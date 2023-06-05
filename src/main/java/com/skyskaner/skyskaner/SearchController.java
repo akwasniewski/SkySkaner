@@ -62,24 +62,15 @@ public class SearchController implements Initializable {
             HBox mainBox = new HBox();
             Label stopInfo = new Label("(empty)");
             Label price = new Label("(empty)");
-            Label code1 = new Label("(empty)");
-            Label code2 = new Label("(empty)");
             VBox conInfo = new VBox();
             Pane up = new Pane();
             Pane left = new Pane();
             Pane right = new Pane();
             Label airline = new Label();
-            Pane mid = new Pane();
             {
-                mainBox.getChildren().addAll(code1,mid,code2);
                 mainBox.setAlignment(Pos.CENTER);
                 vbox.getChildren().addAll(stopInfo, price, mainBox, airline);
                 vbox.setMinWidth(524);
-                mid.setMinWidth(50);
-                mid.setMaxHeight(5);
-                code1.setStyle("-fx-font: 40 arial;");
-                code2.setStyle("-fx-font: 40 arial;");
-                mid.setStyle("-fx-background-color: grey;");
             }
             @Override
             protected void updateItem(SearchResult item, boolean empty) {
@@ -87,8 +78,20 @@ public class SearchController implements Initializable {
                 if (empty || item == null) {
                     setGraphic(null);
                 } else {
-                    code1.setText(item.flights.get(0).origin.code);
-                    code2.setText(item.flights.get(0).destination.code);
+                    mainBox.getChildren().clear();
+                    for(Flight cur: item.flights){
+                        Label code = new Label(cur.origin.code);
+                        code.setStyle("-fx-font: 20 arial;");
+                        Pane mid = new Pane();
+                        mid.setMinWidth(50);
+                        mid.setMaxHeight(5);
+                        mid.setStyle("-fx-background-color: grey;");
+                        mainBox.getChildren().addAll(code,mid);
+                    }
+                    //final destination
+                    Label code = new Label(item.flights.getLast().destination.code);
+                    code.setStyle("-fx-font: 20 arial;");
+                    mainBox.getChildren().addAll(code);
                     airline.setText(item.flights.get(0).airlines.get(0).name);
                     if(item.flights.size()==1){
                         stopInfo.setText("Direct");
