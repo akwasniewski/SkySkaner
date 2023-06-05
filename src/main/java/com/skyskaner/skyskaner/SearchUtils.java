@@ -1,9 +1,6 @@
 package com.skyskaner.skyskaner;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.LinkedList;
 public class SearchUtils {
     public static LinkedList<SearchResult> Search(String origin, String destination, Date date) throws SQLException {
@@ -44,7 +41,6 @@ public class SearchUtils {
             LinkedList<Flight> curFlights = new LinkedList<>();
             curFlights.add(flight1);
             Flight flight2 = GetFlight(id2);
-            System.out.println(id1 + " "+ id2 );
             curFlights.add(flight2);
             flights.add(new SearchResult(curFlights, price));
         }
@@ -52,20 +48,22 @@ public class SearchUtils {
     }
     public static Flight GetFlight(int flightId) throws SQLException {
         //first airport;
-        String firstCityQuery = "SELECT id_airport, airports.the_name, cities.the_name, code FROM flights NATURAL JOIN connections JOIN airports ON id_airport=id_airport_from JOIN cities ON airports.id_city=cities.id_city WHERE id_flight=?";
+        String firstCityQuery = "SELECT id_airport, airports.the_name, cities.the_name, code, departure_time FROM flights NATURAL JOIN connections JOIN airports ON id_airport=id_airport_from JOIN cities ON airports.id_city=cities.id_city WHERE id_flight=?";
         PreparedStatement firstCityStatement = DatabaseHandler.connection.prepareStatement(firstCityQuery);
         firstCityStatement.setInt(1, flightId);
         ResultSet firstCityInfo = firstCityStatement.executeQuery();
         firstCityInfo.next();
         Airport firstAirport = new Airport(firstCityInfo.getInt(1),firstCityInfo.getString(2), firstCityInfo.getString(3),firstCityInfo.getString(4));
+        Time departureTime=firstCityInfo.getTime(5);
 
         //second airport
-        String secondCityQuery = "SELECT id_airport, airports.the_name, cities.the_name, code FROM flights NATURAL JOIN connections JOIN airports ON id_airport=id_airport_to JOIN cities ON airports.id_city=cities.id_city WHERE id_flight=?";
+        String secondCityQuery = "SELECT id_airport, airports.the_name, cities.the_name, code,arrival_time FROM flights NATURAL JOIN connections JOIN airports ON id_airport=id_airport_to JOIN cities ON airports.id_city=cities.id_city WHERE id_flight=?";
         PreparedStatement secondCityStatement = DatabaseHandler.connection.prepareStatement(secondCityQuery);
         secondCityStatement.setInt(1, flightId);
         ResultSet secondCityInfo = secondCityStatement.executeQuery();
         secondCityInfo.next();
         Airport secondAirport = new Airport(secondCityInfo.getInt(1),secondCityInfo.getString(2), secondCityInfo.getString(3),secondCityInfo.getString(4));
+        Time arrivalTime=firstCityInfo.getTime(5);
 
         //airlines
         String airlinesQuery = "SELECT bb.the_name FROM airplanes NATURAL JOIN airlines_airplanes aa JOIN airlines bb ON aa.id_airline=bb.id_airline JOIN flights on airplanes.id_airplane=flights.id_airplane WHERE id_flight=? ";
@@ -76,7 +74,7 @@ public class SearchUtils {
         while(airlinesInfo.next()){
             airlines.add(new Airline(airlinesInfo.getString(1)));
         }
-        return new Flight(flightId, firstAirport, secondAirport, airlines);
+        return new Flight(flightId, firstAirport, secondAirport, airlines, departureTime, arrivalTime);
     }
 }
     //SELECT id_airport, airports.the_name, cities.the_name, code, the_date FROM flights NATURAL JOIN connections JOIN airports ON id_airport=id_airport_from JOIN airplanes ON flights.id_airplane=airplanes.id_airplane JOIN cities ON airports.id_city=cities.id_city WHERE id_flight=10;

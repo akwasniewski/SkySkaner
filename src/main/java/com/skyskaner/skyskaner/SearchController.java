@@ -68,7 +68,8 @@ public class SearchController implements Initializable {
             {
                 mainBox.setAlignment(Pos.CENTER);
                 vbox.getChildren().addAll(stopInfo, price, mainBox, airline);
-                vbox.setMinWidth(524);
+                vbox.setMinWidth(450);
+                vbox.setMaxWidth(450);
             }
             @Override
             protected void updateItem(SearchResult item, boolean empty) {
@@ -78,19 +79,30 @@ public class SearchController implements Initializable {
                 } else {
                     mainBox.getChildren().clear();
                     for(Flight cur: item.flights){
-                        Label code = new Label(cur.origin.code);
-                        code.setStyle("-fx-font: 20 arial;");
+                        HBox box = new HBox();
+                        VBox info1 = new VBox();
+                        Label code1 = new Label(cur.origin.code);
+                        Label time1 = new Label(cur.departureTime.toString());
+                        info1.getChildren().addAll(code1,time1);
+                        VBox info2 = new VBox();
+                        Label code2 = new Label(cur.destination.code);
+                        Label time2 = new Label(cur.arrivalTime.toString());
+                        info2.getChildren().addAll(code2,time2);
+                        code1.setStyle("-fx-font: 20 arial;");
+                        code2.setStyle("-fx-font: 20 arial;");
                         Pane mid = new Pane();
+                        box.getChildren().addAll(info1,mid,info2);
                         mid.setMinWidth(50);
                         mid.setMaxHeight(5);
                         mid.setStyle("-fx-background-color: grey;");
-                        mainBox.getChildren().addAll(code,mid);
+                        mainBox.getChildren().addAll(box);
+                        if(cur!=item.flights.getLast()){
+                            Pane space = new Pane();
+                            space.setMinWidth(50);
+                            mainBox.getChildren().addAll(space);
+                        }
                     }
                     //final destination
-                    Label code = new Label(item.flights.getLast().destination.code);
-                    code.setStyle("-fx-font: 20 arial;");
-                    mainBox.getChildren().addAll(code);
-                    airline.setText(item.flights.get(0).airlines.get(0).name);
                     if(item.flights.size()==1){
                         stopInfo.setText("Direct");
                     }
