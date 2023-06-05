@@ -16,9 +16,9 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage newStage) throws IOException, SQLException {
         stage=newStage;
-        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search.fxml"));
+        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         DatabaseHandler.ConnectToPostgres();
-        scene = new Scene(fxmlLoader.load(), 600, 400);
+        scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Skyskaner");
         stage.setScene(scene);
         stage.show();

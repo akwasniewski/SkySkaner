@@ -34,15 +34,22 @@ public class SignupController {
                 ErrorMessage("Username taken :(");
                 return;
             }
-            Random rn = new Random();
-            int random=rn.nextInt();
+            int userId;
+            String lastUserQuery = "SELECT id_user FROM users ORDER BY 1 DESC LIMIT 1";
+            PreparedStatement lastUserStatement = DatabaseHandler.connection.prepareStatement(lastUserQuery);
+            ResultSet lastUserSet = lastUserStatement.executeQuery();
+            if(lastUserSet.next()){
+                userId=lastUserSet.getInt(1)+1;
+            }
+            else userId=1;
+
             String insert = "INSERT into users values (?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseHandler.connection.prepareStatement(insert);
-            preparedStatement.setInt(1, random);
+            preparedStatement.setInt(1, userId);
             preparedStatement.setString(2, usernameField.getText());
             preparedStatement.setString(3, hashedPassword);
             preparedStatement.executeUpdate();
-            HelloApplication.SetUser(random);
+            HelloApplication.SetUser(userId);
         }
         catch (SQLException | IOException e) {
             throw new RuntimeException(e);
