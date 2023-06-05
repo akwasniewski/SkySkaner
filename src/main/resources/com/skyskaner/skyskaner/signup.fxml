@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.skyskaner.skyskaner.SignupController"
+            prefHeight="400.0" prefWidth="600.0">
+    <Label alignment="CENTER"  layoutX="150" layoutY="10" prefHeight=".0" text="Sign up" textAlignment="CENTER"/>
+    <TextField fx:id="usernameField" layoutX="38.0" layoutY="43.0" prefHeight="35.0" promptText="Username" prefWidth="250.0">
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+    </TextField>
+    <PasswordField fx:id="passwordField" layoutX="38.0" layoutY="100.0" prefHeight="35.0" promptText="Password" prefWidth="250.0">
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+    </PasswordField>
+    <Button fx:id="submit" layoutX="38.0" layoutY="140" mnemonicParsing="false" onAction="#Signup" prefHeight="26.0" text="Sign Up" />
+    <Label fx:id="errorLabel" alignment="CENTER"  layoutX="100" layoutY="160" prefHeight=".0" text="" textAlignment="CENTER" textFill="RED"/>
+    <Button fx:id="login" layoutX="200.0" layoutY="180" mnemonicParsing="false" onAction="#ChangeLogin"  text="Log In Instead" />
+</AnchorPane>
