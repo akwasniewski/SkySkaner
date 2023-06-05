@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.time.Duration;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalUnit;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -88,13 +91,26 @@ public class SearchController implements Initializable {
                         Label code2 = new Label(cur.destination.code);
                         Label time2 = new Label(cur.arrivalTime.toString());
                         info2.getChildren().addAll(code2,time2);
+                        long dur = Duration.between(cur.departureTime.toLocalTime(), cur.arrivalTime.toLocalTime()).toHours() + 1;
+                        String durString;
+                        if(dur==1){
+                            durString=dur+" hour";
+                        }
+                        else{
+                            durString=dur+" hour";
+                        }
+                        Label duration = new Label(durString);
                         code1.setStyle("-fx-font: 20 arial;");
                         code2.setStyle("-fx-font: 20 arial;");
-                        Pane mid = new Pane();
+                        VBox mid = new VBox();
+                        Pane bar = new Pane();
+                        mid.setAlignment(Pos.CENTER);
+
+                        mid.getChildren().addAll(duration,bar);
                         box.getChildren().addAll(info1,mid,info2);
-                        mid.setMinWidth(50);
-                        mid.setMaxHeight(5);
-                        mid.setStyle("-fx-background-color: grey;");
+                        bar.setMinWidth(50);
+                        bar.setMaxHeight(5);
+                        bar.setStyle("-fx-background-color: grey;");
                         mainBox.getChildren().addAll(box);
                         if(cur!=item.flights.getLast()){
                             Pane space = new Pane();
