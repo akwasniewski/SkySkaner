@@ -15,5 +15,4 @@ public class Flight {
         this.airlines=airlines;
         this.price=0;
     }
-
 }

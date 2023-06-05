@@ -29,7 +29,7 @@ public class SearchUtils {
         return flights;
     }
     public static LinkedList<SearchResult> SearchOneStop(String origin, String destination, Date date) throws SQLException {
-        String query = "SELECT * from getbest1((SELECT id_airport from airports JOIN cities ON airports.id_city=cities.id_city where cities.the_name=? LIMIT 1),(SELECT id_airport from airports JOIN cities ON airports.id_city=cities.id_city where cities.the_name=? LIMIT 1),?)";
+        String query = "SELECT * from getbest1(?,?,?)";
         PreparedStatement preparedStatement = DatabaseHandler.connection.prepareStatement(query);
         preparedStatement.setString(1, origin);
         preparedStatement.setString(2, destination);
@@ -38,12 +38,13 @@ public class SearchUtils {
         LinkedList<SearchResult> flights = new LinkedList<>();
         while(rs.next()){
             int id1= rs.getInt(1);
-            int id2= rs.getInt(1);
+            int id2= rs.getInt(2);
             int price = rs.getInt(3);
             Flight flight1 = GetFlight(id1);
             LinkedList<Flight> curFlights = new LinkedList<>();
             curFlights.add(flight1);
             Flight flight2 = GetFlight(id2);
+            System.out.println(id1 + " "+ id2 );
             curFlights.add(flight2);
             flights.add(new SearchResult(curFlights, price));
         }
