@@ -9,4 +9,9 @@ public class SearchResult {
         this.price=price;
         this.flights=flights;
     }
+    SearchResult(Flight flight, int price){
+        this.price=price;
+        this.flights = new LinkedList<Flight>();
+        this.flights.add(flight);
+    }
 }

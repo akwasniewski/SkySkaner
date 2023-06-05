@@ -8,12 +8,12 @@ public class Flight {
     public Airport destination;
     LinkedList<Airline> airlines;
     public int price;
-    Flight(int id, Airport origin, Airport destination, int price, LinkedList<Airline> airlines){
+    Flight(int id, Airport origin, Airport destination, LinkedList<Airline> airlines){
         this.id=id;
         this.origin=origin;
         this.destination=destination;
-        this.price=price;
         this.airlines=airlines;
+        this.price=0;
     }
 
 }

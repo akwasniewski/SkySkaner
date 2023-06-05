@@ -42,7 +42,6 @@ public class SignupController {
                 userId=lastUserSet.getInt(1)+1;
             }
             else userId=1;
-
             String insert = "INSERT into users values (?, ?, ?)";
             PreparedStatement preparedStatement = DatabaseHandler.connection.prepareStatement(insert);
             preparedStatement.setInt(1, userId);
