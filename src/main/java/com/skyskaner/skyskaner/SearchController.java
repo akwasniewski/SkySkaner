@@ -99,7 +99,7 @@ public class SearchController implements Initializable {
                     else{
                         stopInfo.setText(String.valueOf(item.flights.size()-1) + " stop");
                     }
-                    price.setText(String.valueOf(item.flights.get(0).price)+ "€");
+                    price.setText(String.valueOf(item.price)+ "€");
                     setGraphic(vbox);
                 }
             }
