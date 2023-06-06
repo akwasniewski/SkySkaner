@@ -18,6 +18,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.time.Duration;
+import java.time.LocalTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalUnit;
 import java.util.LinkedList;
@@ -87,19 +88,31 @@ public class SearchController implements Initializable {
                         HBox box = new HBox();
                         VBox info1 = new VBox();
                         Label code1 = new Label(cur.origin.code);
+                        Label city1 = new Label(cur.origin.city);
                         Label time1 = new Label(cur.departureTime.toString());
-                        info1.getChildren().addAll(code1,time1);
+                        info1.getChildren().addAll(code1,city1,time1);
                         VBox info2 = new VBox();
                         Label code2 = new Label(cur.destination.code);
+                        Label city2 = new Label(cur.destination.city);
                         Label time2 = new Label(cur.arrivalTime.toString());
-                        info2.getChildren().addAll(code2,time2);
-                        long dur = Duration.between(cur.departureTime.toLocalTime(), cur.arrivalTime.toLocalTime()).toHours() + 1;
-                        String durString;
-                        if(dur==1){
-                            durString=dur+" hour";
+                        info2.getChildren().addAll(code2,city2,time2);
+                        long durHours;
+                        long durMinutes;
+                        if(cur.departureTime.toLocalTime().isBefore(cur.arrivalTime.toLocalTime())){
+                            Duration curDur=Duration.between(cur.departureTime.toLocalTime(), cur.arrivalTime.toLocalTime());
+                            durHours= Duration.between(cur.departureTime.toLocalTime(), cur.arrivalTime.toLocalTime()).toHoursPart();
+                            durMinutes= Duration.between(cur.departureTime.toLocalTime(), cur.arrivalTime.toLocalTime()).toMinutesPart();
                         }
                         else{
-                            durString=dur+" hour";
+                            durHours=(23-Duration.between(cur.arrivalTime.toLocalTime(),cur.departureTime.toLocalTime()).toHoursPart());
+                            durMinutes=(60-Duration.between(cur.arrivalTime.toLocalTime(),cur.departureTime.toLocalTime()).toMinutesPart());
+                        }
+                        String durString="";
+                        if(durHours!=0){
+                            durString+=durHours+"h ";
+                        }
+                        if(durMinutes!=0){
+                            durString+=durMinutes+"min";
                         }
                         Label duration = new Label(durString);
                         code1.setStyle("-fx-font: 20 arial;");
@@ -107,11 +120,10 @@ public class SearchController implements Initializable {
                         VBox mid = new VBox();
                         Pane bar = new Pane();
                         mid.setAlignment(Pos.CENTER);
-
                         mid.getChildren().addAll(duration,bar);
                         box.getChildren().addAll(info1,mid,info2);
-                        bar.setMinWidth(50);
-                        bar.setMaxHeight(5);
+                        bar.setMinWidth(60);
+                        bar.setMinHeight(5);
                         bar.setStyle("-fx-background-color: grey;");
                         mainBox.getChildren().addAll(box);
                         if(cur!=item.flights.getLast()){
