@@ -35,10 +35,26 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
 
     }
+
     public static void ChangeLogin(boolean val) throws IOException {
         if(val) fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("signup.fxml"));
         else fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setScene(scene);
+    }
+    public static void showSearch() throws IOException {
+
+        System.out.println("logged in as user:"+ userId );
+        fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("search.fxml"));
+        scene = new Scene(fxmlLoader.load(), 600, 400);
+        stage.setScene(scene);
+
+    }
+
+    public static void ShowTickets() throws IOException {
+
+        fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("showtickets.fxml"));
+        scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setScene(scene);
     }
 }

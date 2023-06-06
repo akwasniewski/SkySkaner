@@ -36,7 +36,8 @@ create table cities (
 	id_city integer constraint pk_cities primary key,
 	the_name varchar(250) not null,
 	id_country integer references countries(id_country) not null ,
-	Location point not null,
+	Longitude x not null,
+	Latitude y not null,
 	timezone integer not null
 );
 

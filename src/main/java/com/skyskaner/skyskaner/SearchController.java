@@ -32,9 +32,7 @@ public class SearchController implements Initializable {
     Label errorLabel;
     @FXML
     ListView<SearchResult> searchResultList;
-    {
 
-    }
     public void Search() throws SQLException {
         if(origin.getText().equals("") || destination.getText().equals("") || date==null){
             ErrorMessage("Provide all data");
@@ -117,5 +115,9 @@ public class SearchController implements Initializable {
                 EventHandlers.Next.handle(new ActionEvent());
             }
         });*/
+    }
+
+    public void goTickets(ActionEvent actionEvent) throws IOException {
+        HelloApplication.ShowTickets();
     }
 }

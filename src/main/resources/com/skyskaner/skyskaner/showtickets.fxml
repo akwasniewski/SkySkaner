@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.skyskaner.skyskaner.Showtickets"
+            prefHeight="400.0" prefWidth="600.0">
+    <Button text="ShowTickets" onAction="#showTickets" layoutX="350" layoutY="10" textFill="WHITE" style="-fx-background-color: blue;"/>
+    <Button text="Back" onAction="#goBack" layoutX="150" layoutY="10" textFill="WHITE" style="-fx-background-color: blue;"/>
+    <Label fx:id="errorLabel" alignment="CENTER"  layoutX="38" layoutY="60" prefHeight=".0" text="" textAlignment="CENTER" textFill="RED"/>
+    <ListView fx:id="resultlist" layoutX="38.0" layoutY="80.0" prefHeight="600.0" prefWidth="524.0" stylesheets="@listviewstyle.css" />
+</AnchorPane>
