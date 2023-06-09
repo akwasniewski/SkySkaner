@@ -7,8 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -17,16 +16,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Showtickets {
-
+    @FXML
+    TextField deleteField;
     public Label errorLabel;
+    public Label errorLabel2;
     @FXML
     ListView<TicketResult> resultlist=new ListView<>();
+    TicketResult result;
 
     public void goBack(ActionEvent actionEvent) throws IOException {
         HelloApplication.showSearch();
     }
 
-    public void showTickets(ActionEvent actionEvent) {
+    public void showTickets() {
         searchTickets();
 
         resultlist.setCellFactory(param -> new ListCell<TicketResult>() {
@@ -47,7 +49,7 @@ public class Showtickets {
 
                     for (int i = 0; i < item.myticket.size(); i++) {
                         VBox labelBox = new VBox();
-                        Label idTicketLabel = new Label("Ticket ID: " + item.myticket.get(i).id_ticket);
+                        Label idTicketLabel = new Label("Ticket ID: " + item.myticket.get(i).id);
                         Label isChildLabel = new Label("Child: " + item.myticket.get(i).ischild);
                         Label luggageTypeLabel = new Label("Luggage Type: " + item.myticket.get(i).luggagetype);
                         Label dateLabel = new Label("Date: " + item.myticket.get(i).date + " Departure: " + item.myticket.get(i).departure + " Arrival: " + item.myticket.get(0).arrival);
@@ -65,14 +67,14 @@ public class Showtickets {
 
     public void searchTickets(){
         TicketResult result = new TicketResult();
-        String query = "select u.id_ticket, is_child, luggage_type, the_date, departure_time, arrival_time, id_airport_from, id_airport_to  from tickets t join user_tickets u on u.id_ticket = t.id_ticket \n" +
+        String query = "select u.id, is_child, luggage_type, the_date, departure_time, arrival_time, id_airport_from, id_airport_to  from tickets t join user_tickets u on u.id_ticket = t.id_ticket \n" +
                 "join flights f on f.id_flight = t.id_flight \n" +
                 "join connections c on c.id_connection = f.id_connection where id_user='"+HelloApplication.userId+"'";
         try (Statement stmt = DatabaseHandler.connection.createStatement()) {
 
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                int ticketId = rs.getInt("id_ticket");
+                int ticketId = rs.getInt("id");
                 boolean isChild = rs.getBoolean("is_Child");
                 int luggageType = rs.getInt("luggage_type");
                 String date = rs.getString("the_date");
@@ -104,6 +106,7 @@ public class Showtickets {
                     t.to = city_to;
                 }
             };
+            this.result=result;
             resultlist.getItems().clear();
             resultlist.getItems().addAll(result);
         } catch (SQLException e) {
@@ -115,5 +118,27 @@ public class Showtickets {
     public void ErrorMessage(String err){
 
         errorLabel.setText(err);
+    }
+    public void ErrorMessage2(String err){
+        deleteField.setText("");
+        errorLabel.setText(err);
+    }
+    public void cancel(ActionEvent actionEvent) {
+        if(deleteField.getText().equals("")){ErrorMessage2("Select ticket to cancel.");
+            return;}
+        int id = Integer.parseInt(deleteField.getText());
+        for(Ticket t : this.result.myticket ){
+            if (t.id==id){
+                String query="delete from user_tickets where user_tickets.id="+id+";";
+                try (Statement stmt = DatabaseHandler.connection.createStatement()) {
+                    stmt.executeQuery(query);
+                } catch (SQLException e) {
+
+                }
+                showTickets();
+            return;
+            }
+        }
+        ErrorMessage2("Wrong ticket number");
     }
 }
