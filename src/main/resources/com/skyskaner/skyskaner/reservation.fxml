@@ -10,5 +10,13 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.skyskaner.skyskaner.ReservationController"
             prefHeight="400.0" prefWidth="600.0">
-
+    <Button text="Back" onAction="#goBack" layoutX="150" layoutY="10" textFill="WHITE" style="-fx-background-color: blue;"/>
+    <Label layoutX="50" layoutY="50" style="-fx-background-color: #C0C0C0;" fx:id="flightInfo"/>
+    <Label layoutX="50" layoutY="180" text="how many tickets?"/>
+    <Spinner layoutX="200" layoutY="180" fx:id="howManyChooser"/>
+    <Label layoutX="50" layoutY="230" text="is child?"/>
+    <CheckBox fx:id="isChild" layoutY="230" layoutX="200"/>
+    <Button text="Reserve" onAction="#reserve" layoutX="150" layoutY="400" textFill="WHITE" style="-fx-background-color: blue;"/>
+    <Label layoutX="50" layoutY="280" text="luggage type?"/>
+    <Spinner layoutX="200" layoutY="280" fx:id="luggageChooser"/>
 </AnchorPane>

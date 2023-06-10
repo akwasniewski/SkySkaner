@@ -53,12 +53,11 @@ public class Showtickets implements Initializable {
                         Label luggageTypeLabel = new Label("Luggage Type: " + item.luggagetype);
                         Label dateLabel = new Label("Date: " + item.date + " Departure: " + item.departure + " Arrival: " + item.arrival);
                         Label routeLabel = new Label(item.from + " -----> " + item.to);
-                        Label separator = new Label("------------------------------------------");
                         Button cancelButton = new Button();
                         cancelButton.setText("Cancel Reservation");
                         cancelButton.setStyle("-fx-background-color: blue;-fx-text-fill: white");
                         cancelButton.setMaxHeight(15);
-                        labelBox.getChildren().addAll(idTicketLabel, isChildLabel, luggageTypeLabel, dateLabel, routeLabel,cancelButton, separator);
+                        labelBox.getChildren().addAll(idTicketLabel, isChildLabel, luggageTypeLabel, dateLabel, routeLabel,cancelButton);
                         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {

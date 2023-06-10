@@ -135,6 +135,7 @@ public class SearchController implements Initializable {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
+                    ReservationController.result=searchResultList.getSelectionModel().getSelectedItem();
                     HelloApplication.ReserveTickets();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
