@@ -131,21 +131,18 @@ public class SearchController implements Initializable {
             }
         });
 
-        /*searchResultList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        searchResultList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (searchResultList.getSelectionModel().getSelectedItem() == null) return;
-                if(!SongQueue.IsEmpty()) {
-                    confirm.showAndWait();
-                    if (confirm.getResult() == ButtonType.NO) {
-                        return;
-                    }
+                try {
+                    HelloApplication.ReserveTickets();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-                SongQueue.Clear();
-                SongQueue.AddFront((Song) searchResultList.getSelectionModel().getSelectedItem());
-                EventHandlers.Next.handle(new ActionEvent());
+
+
             }
-        });*/
+        });
     }
 
     public void goTickets(ActionEvent actionEvent) throws IOException {

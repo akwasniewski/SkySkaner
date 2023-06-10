@@ -31,7 +31,7 @@ public class HelloApplication extends Application {
         userId=user;
         System.out.println("logged in as user:"+ userId );
         fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("search.fxml"));
-        scene = new Scene(fxmlLoader.load(), 600, 400);
+        scene = new Scene(fxmlLoader.load(), 600, 800);
         stage.setScene(scene);
     }
 
@@ -45,7 +45,7 @@ public class HelloApplication extends Application {
 
         System.out.println("logged in as user:"+ userId );
         fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("search.fxml"));
-        scene = new Scene(fxmlLoader.load(), 600, 400);
+        scene = new Scene(fxmlLoader.load(), 600, 800);
         stage.setScene(scene);
 
     }
@@ -53,7 +53,14 @@ public class HelloApplication extends Application {
     public static void ShowTickets() throws IOException {
 
         fxmlLoader= new FXMLLoader(HelloApplication.class.getResource("showtickets.fxml"));
-        scene = new Scene(fxmlLoader.load(), 600, 400);
+        scene = new Scene(fxmlLoader.load(), 600, 800);
         stage.setScene(scene);
     }
+    public static void ReserveTickets() throws IOException {
+        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("reservation.fxml"));
+        scene = new Scene(fxmlLoader.load(),600,800);
+        stage.setScene(scene);
+
+    }
+
 }
