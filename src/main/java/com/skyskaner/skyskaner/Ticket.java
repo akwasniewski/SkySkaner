@@ -1,7 +1,7 @@
 package com.skyskaner.skyskaner;
 
 public class Ticket{
-    int id;
+    public int id;
    boolean ischild;
     int luggagetype;
     String date;
