@@ -10,6 +10,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.skyskaner.skyskaner.ReservationController"
             prefHeight="400.0" prefWidth="600.0">
+    <Label fx:id="total" alignment="CENTER"  layoutX="240" layoutY="405" prefHeight=".0" text="Price: " textAlignment="CENTER"/>
     <Button text="Back" onAction="#goBack" layoutX="150" layoutY="10" textFill="WHITE" style="-fx-background-color: blue;"/>
     <Label layoutX="50" layoutY="50" style="-fx-background-color: #C0C0C0;" fx:id="flightInfo"/>
     <Label layoutX="50" layoutY="180" text="how many tickets?"/>

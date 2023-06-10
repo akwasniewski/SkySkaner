@@ -34,17 +34,8 @@ Spinner<Integer> luggageChooser;
 @FXML
 CheckBox isChild;
 
-
-void setIschild(ActionEvent a){
-
-}
-
-void setLuggagetype(ActionEvent a){
-
-}
-void setHowmany(ActionEvent a){
-
-}
+@FXML
+Label total;
 
 void makeReservation() {
     for (Flight f : result.flights) {
@@ -68,15 +59,40 @@ void makeReservation() {
         makeReservation();
         goBack();
     };
+    public void calcprice(){
+        int price=0;
+        if(isChild.isSelected())price+=howManyChooser.getValue()* result.price/2;
+        else price+=howManyChooser.getValue()* result.price;
+        price+= (luggageChooser.getValue()-1)*howManyChooser.getValue();
+        total.setText("Price: "+price+"€");
+
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,10);
         valueFactory.setValue(1);
         howManyChooser.setValueFactory(valueFactory);
         SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,10);
         valueFactory2.setValue(1);
         luggageChooser.setValueFactory(valueFactory2);
+
+        valueFactory.valueProperty().addListener((observable, oldValue, newValue) -> {
+            calcprice();
+        });
+
+        valueFactory2.valueProperty().addListener((observable, oldValue, newValue) -> {
+            calcprice();
+        });
+
+
+        isChild.setOnAction(event -> {
+            boolean isSelected = isChild.isSelected();
+            calcprice();
+        });
+
         VBox vbox = new VBox();
         HBox mainBox = new HBox();
         Label stopInfo = new Label("(empty)");
